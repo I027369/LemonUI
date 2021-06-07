@@ -1,0 +1,48 @@
+<!-- the main body -->
+<app-navbar></app-navbar>
+<!--
+<div class="container m-5">
+  <div class="card-columns">
+    <div class="card" style="width:20rem" *ngFor="let table of tableList">
+      <qrcode [qrdata]="table.qrCode" [size]="200" [level]="'M'" [colordark]="'#443987'" [colorlight]="'#666087'"></qrcode>
+      <div class="card-body">
+        <h5 class="card-title">Table - {{ table.tableId }}</h5>
+        <h5 class="card-text">Description - {{ table.description }}</h5>    
+      </div>
+    </div>
+  </div>
+</div> -->
+  <header id="page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 m-auto text-left">
+          <h1>QRCode For Tables</h1>          
+        </div>
+        <div class="col-md-6 m-auto text-right">
+          <button type="button" class="btn btn-danger" (click)="savePDF()">Save as PDF</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="container mt-5" id="element-to-print">
+  <div class="card-columns">
+    <div class="card"  *ngFor="let table of tableList" style="width: 15rem;">
+      <div class="card-header  text-center">{{ table.description }}</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ table.tableId }}</h5>
+        <qrcode [qrdata]="table.qrCode" [size]="150" [level]="'M'"></qrcode>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <footer id="main-footer" class="text-center p-3" style="margin-top:360px">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p>Copyright 2018 &copy; Moonshot</p>
+        </div>
+      </div>
+    </div>
+  </footer>

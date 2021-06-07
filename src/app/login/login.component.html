@@ -1,0 +1,67 @@
+<div class="container margin">
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Please Sign In</h3>
+        </div>
+        <p class="text-center margin oblique shadow">
+          <font size="40" style="color:teal; font-family:Comic Sans MS">Moonshot</font>
+        </p>
+        <div class="panel-body">
+          <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="form-group">
+              <input 
+              class="form-control" 
+              placeholder="E-mail" 
+              id="email" 
+              name="email" 
+              type="email" 
+              autofocus 
+              ngModel 
+              required 
+              email 
+              autofocus
+              #email="ngModel"
+              (blur)="emailClicked()"
+              >
+              <span class="help-block" *ngIf="!email.valid && email.touched && emailErr" style="color:red">
+                Plese enter a valid email!</span>
+            </div>
+            <div class="form-group">
+              <input 
+               class="form-control"
+               placeholder="Password"
+               id="password"
+               name="password"
+               type="password"
+               ngModel
+               required
+               #password="ngModel"
+               (blur)="passwordClicked()"
+               (focus)="passwordFocus()"
+               >
+              <span class="help-block" *ngIf="!password.valid && password.touched && passwordErr" style="color:red">Plese enter password!</span>
+            </div>
+            <button type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!f.valid">Login</button>
+            <span class="help-block text-center" *ngIf="!authorized" style="color:red">
+              <strong>Wrong email or password. Try again!</strong>
+            </span>
+          </form>
+        </div>
+        <div class="panel-footer text-center">
+          <a href=#>
+            <font size="2" name="forgotPassword" style="color:teal;">
+              Forgot Password?</font>
+          </a>
+      </div>
+      </div>
+      
+
+      <div class="col-lg-offset-3">
+        Need an account?
+        <a id="signUp" routerLink="/signup">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div>

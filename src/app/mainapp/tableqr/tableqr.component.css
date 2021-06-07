@@ -1,0 +1,22 @@
+
+td {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+table { 
+    border: 1px solid #2980B9;
+ }
+
+ #page-header {
+  height: 150px;
+  background: url("../../../assets/img/image1.jpg");
+  background-position: 0 -360px;
+  background-attachment: fixed;
+  color: #fff;
+  border-bottom: 1px #eee solid;
+  padding-top: 50px; }
+
+  	footer#main-footer {
+  background: #000;
+  color: #fff; 
+}

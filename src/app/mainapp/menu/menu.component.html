@@ -1,0 +1,127 @@
+<!-- the popup dialog -->
+<p-dialog header="Add Menu" [(visible)]="displayAddMenu" [width]="450" modal="true">
+  <form>
+    <div class="form-group">
+      <label for="name1" >Name*</label>
+      <input type="text" class="form-control" name="name1" [(ngModel)]="menu.name" id="name1" placeholder="Lunch Menu">
+    </div>
+    <div class="form-group">
+      <label for="description" >Available From</label>
+      <div>
+        <p-calendar [defaultDate]="availFrom" [(ngModel)]="availFrom" [timeOnly]="true" name="from"></p-calendar>
+      </div>      
+    </div>
+    <div class="form-group mb-5">  
+      <label for="description">Avialable To</label>
+      <div>
+        <p-calendar [defaultDate]="availTo" [(ngModel)]="availTo" [timeOnly]="true" name="to"></p-calendar>
+      </div>      
+    </div>    
+  </form>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="addMenu()" label="Save"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddMenu=false" label="Cancel"></button>
+    </p-footer>
+</p-dialog>
+
+
+  <!-- the main body -->
+  <app-navbar></app-navbar>
+  <!-- the error messages -->
+  <p-growl [(value)]="msgs"></p-growl>
+
+  <!-- confirmation dialog -->
+  <p-confirmDialog></p-confirmDialog>
+
+<body class="Site">
+  <section class="Site-content">
+    <div class="tab">
+      <button class="tablinks" (click)="openCity($event, 'Menu')" id="defaultOpen">
+        <h4>Menu</h4>
+      </button>
+      <button class="tablinks" (click)="openCity($event, 'Category')" >
+        <h4>Category</h4>
+      </button>
+      
+    </div>
+
+ 
+    <div id="Menu" class="tabcontent">
+      <div class="table-wrapper" >
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4>Manage Menu
+              </h4>
+            </div>      
+            <div class="col-sm-6">
+              <button (click)="blockMenu()" class="btn btn-outline-dark" type="button" data-toggle="modal" [disabled]="!enableBlockButton">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <span>Block</span>
+              </button>
+              <button (click)="publishMenu()" class="btn btn-outline-dark" type="button" data-toggle="modal" [disabled]="!enablePublishButton">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span>Publish</span>
+              </button>
+              <button (click)="showDialog()" class="btn btn-outline-dark" type="button" data-toggle="modal">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                <span>Add</span>
+              </button>
+              
+            </div>
+      
+          </div>
+        </div>
+              
+        <p-table [value]="menuList" [paginator]="true" [rows]="5" dataKey="name" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnSelect($event)">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 2.25em"></th>
+              <th *ngFor="let col of menuCols" [pSortableColumn]="col.field" style="font-size: 16px">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="font-size: 16px" >Action</th>
+              <th style="font-size: 16px">Menu Items</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-menu>
+            <tr [pSelectableRow]="menu">
+              <td>
+                <p-tableRadioButton [value]="menu"></p-tableRadioButton>
+              </td>
+              <td *ngFor="let col of menuCols" style="font-size: 16px">
+                {{menu[col.field]}}
+              </td>
+              <td style="font-size: 16px">
+                <a class="edit" data-toggle="modal" (click)="editMenu(menu)">
+                  <i class="fa fa-pencil" style="color: darkblue" aria-hidden="true"></i>
+                </a>
+                <a class="delete" data-toggle="modal" (click)="openDeleteMenuPop(menu)">
+                  <i class="fa fa-trash" style="color:maroon" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td style="font-size: 16px">
+                <a class="edit" data-toggle="modal" (click)="showMenuItems(menu)">
+                  <button class="btn btn-outline-dark" type="button">Show/Add</button>
+                </a>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div id="Category" class="tabcontent">
+      <app-category></app-category>
+    </div>
+
+  </section>
+  <app-footer></app-footer>
+</body>
+
+
+
+
+
+
+ 

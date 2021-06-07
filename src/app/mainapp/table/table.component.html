@@ -1,0 +1,92 @@
+
+<!-- the popup dialog -->
+<p-dialog header="Add Table" [(visible)]="displayTable" [width]="450" modal="true">
+  <form>
+    <div class="form-group">
+      <label for="name1">Table Id*</label>
+      <input type="text" class="form-control" name="tableId" [(ngModel)]="table.tableId" id="tableId" placeholder="Rx 16">
+    </div>
+    <div class="form-group">
+      <label for="description">Table Description</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="table.description" id="description" placeholder="Corner table">
+    </div>
+  </form>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="addTable()" label="Save"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayTable=false" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+<!-- the main body -->
+<app-navbar></app-navbar>
+<!-- the error messages -->
+<p-growl [(value)]="msgs"></p-growl>
+ 
+  <!-- confirmation dialog -->
+  <p-confirmDialog></p-confirmDialog>
+
+  <body class="Site">
+    <section class="Site-content">
+      <div class="container" style="margin-top: 25px;">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4>Manage
+                  Tables
+                </h4>
+              </div>
+
+              <div class="col-sm-6">
+                <!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    <span>Delete</span>
+                  </a> -->
+                <button (click)="generateQR()" class="btn btn-outline-dark" type="button">
+                  <i class="fa fa-qrcode" aria-hidden="true"></i>
+                  <span>Generate QR</span>
+                </button>
+                <button (click)="showDialog()" class="btn btn-outline-dark" type="button">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  <span>Add</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <p-table [value]="tableList" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of tableCols" [pSortableColumn]="col.field" style="font-size: 16px">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th style="font-size: 16px">Action</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-table>
+              <tr>
+                <td *ngFor="let col of tableCols" style="font-size: 16px">
+                  {{table[col.field]}}
+                </td>
+                <td style="font-size: 16px">
+                  <a class="edit" data-toggle="modal" (click)="editTable(table)">
+                    <i class="fa fa-pencil" style="color: darkblue" aria-hidden="true"></i>
+                  </a>
+                  <a class="delete" data-toggle="modal" (click)="openDeleteTablePop(table)">
+                    <i class="fa fa-trash" style="color: maroon" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>   
+        </div>
+      </div>
+    </section>
+    <app-footer></app-footer>
+   </body>
+
+ 

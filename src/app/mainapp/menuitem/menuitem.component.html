@@ -1,0 +1,187 @@
+<!-- the popup dialog -->
+<p-dialog header="Add Menu Item" [(visible)]="displayAddMenuItem" [width]="650" modal="true">
+  <form>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="name1" class="control-label">Name*</label>
+          <input type="text" class="form-control" name="name1" [(ngModel)]="menuItem.name" id="name1" placeholder="Spicy Pizza">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="description" class="control-label">Description</label>
+          <input type="text" class="form-control" name="description" [(ngModel)]="menuItem.description" id="description" placeholder="Pizza with hot sauce">
+        </div>
+      </div>
+    </div>  
+
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="duration" class="control-label">Category</label>
+          <select id="category" class="form-control" name="category" [(ngModel)]="menuItem.categoryId">
+              <option *ngFor="let cat of categoryList" [value]=cat.id>{{ cat.name }}</option>              
+            </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="image" class="control-label">Image</label>
+          <input #imageInput type="file" class="form-control" name="image" (change)="selectFile($event)" id="image" (ngModel)="fileToUpload" >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="duration" class="control-label">Type</label>
+          <select id="type" class="form-control" name="type" [(ngModel)]="menuItem.type">
+              <option>Vegetarian</option>
+              <option>Vegan</option>
+              <option>Non-Vegetarian</option>
+              <option>Sea Food</option>
+            </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="duration" class="control-label">Speciality</label>
+          <select id="speciality" class="form-control" name="speciality" [(ngModel)]="menuItem.itemGroup">
+              <option>Day special</option>
+              <option>Chef special</option>
+            </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="currency" class="control-label">Price</label>
+          <input type="number" min="1" step="any" class="form-control" name="price" [(ngModel)]="menuItem.price" id="price">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="currency" class="control-label">Currency</label>
+          <input type="text" class="form-control" name="currency" [(ngModel)]="menuItem.currency" id="currency" disabled="true">
+        </div>
+      </div>
+    </div>
+
+  </form>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="addMenuItem()" label="Save"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayAddMenuItem=false" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- the main body -->
+<app-navbar></app-navbar>
+<!-- the error messages -->
+<p-growl [(value)]="msgs"></p-growl>
+
+<!-- confirmation dialog -->
+<p-confirmDialog></p-confirmDialog>
+
+<body class="Site">
+  <section class="Site-content">
+
+    <div class="row">
+      <div class="col-md-3" style="margin-top: 45px;">
+        <div class="card px-4">
+          <div class="card-body" style="color: black">
+            <h4>Menu Details</h4>
+            <hr>
+            <h4>Name</h4>
+            <p> {{ menu.name }}</p>
+            <h4>Status</h4>
+            <p> {{ menu.status }}</p>
+            <h4>From</h4>
+            <p>{{ menu.availableFrom }}</p>
+            <h4>To</h4>
+            <p>{{ menu.availableTo }}</p>
+          </div>
+        </div>
+      </div>
+
+
+        <div class="col-md-9" style="margin-top: 25px;">
+          <div class="table-wrapper" style="margin-top: 1px;">           
+            
+            <div class="table-title">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h4>Manage Menu Items</h4>
+                </div>
+                <div class="col-sm-6">
+                  <button (click)="blockMenuItem()" class="btn btn-outline-dark" type="button" data-toggle="modal" [disabled]="!enableBlockButton">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span>Block</span>
+                  </button>
+                  <button (click)="publishMenuItem()" class="btn btn-outline-dark" type="button" data-toggle="modal" [disabled]="!enablePublishButton">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <span>Publish</span>
+                  </button>
+                  <button (click)="openModalMenuItemPop()" class="btn btn-outline-dark" type="button">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Add</span>
+                  </button>
+                </div>
+            
+              </div>
+            </div>
+            
+            <p-table [value]="menuItemList" [paginator]="true" [rows]="5"
+             (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnSelect($event)">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 2.25em"></th>
+                  <th style="width:3em;" ></th>
+                  <th *ngFor="let col of menuItemCols" [pSortableColumn]="col.field" style="font-size: 16px">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                  <th style="font-size: 16px">Action</th>
+                  <th style="font-size: 16px">Choices & Sizes</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-menuItem>
+                <tr [pSelectableRow]="menuItem">
+                  <td>
+                    <p-tableRadioButton [value]="menuItem"></p-tableRadioButton>
+                  </td>
+                  <td>
+                    <img src="{{ menuItem.image }}">
+                  </td>
+        
+                  <td *ngFor="let col of menuItemCols" style="font-size: 16px">
+                    {{menuItem[col.field]}}
+                  </td>
+                  <td style="font-size: 16px">
+                    <a class="edit" data-toggle="modal" (click)="editMenuItem(menuItem)">
+                      <i class="fa fa-pencil iconsize" style="color: darkblue" aria-hidden="true"></i>
+                    </a>
+                    <a class="delete" data-toggle="modal" (click)="openDeleteMenuItemPop(menuItem)">
+                      <i class="fa fa-trash iconsize" style="color:maroon" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                  <td style="font-size: 16px">
+                    <a class="edit" data-toggle="modal" (click)="showChoiceSizes(menuItem)">
+                      <button class="btn btn-outline-dark" type="button">Show/Add</button>
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+        
+          </div>
+        </div>
+
+
+    </div>
+    </section>
+      <app-footer></app-footer>
+    </body>

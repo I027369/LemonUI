@@ -1,0 +1,21 @@
+.table th, .table td { 
+     border-top: none !important; 
+     text-align: center;
+ }
+ .homehrefsize {
+     font-size: 20px
+   }
+  .iconsize {
+     font-size:75px;     
+   }
+  
+   
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}

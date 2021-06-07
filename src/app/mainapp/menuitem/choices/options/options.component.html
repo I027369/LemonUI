@@ -1,0 +1,124 @@
+<!-- the popup dialog -->
+<p-dialog header="Add Option" [(visible)]="displayOption" [width]="450" modal="true">
+  <form>
+    <div class="form-group">
+      <label for="name1">Name*</label>
+      <input type="text" class="form-control" name="name1" [(ngModel)]="option.name" id="name1" placeholder="Vegetarian">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="option.description" id="description" placeholder="Spicy vegan">
+    </div>
+    <div class="form-group">
+      <label for="price" class="control-label">Price</label>
+      <input type="number" min="1" step="any" class="form-control" name="price" [(ngModel)]="option.price" id="price">
+    </div>
+
+    <div class="form-group">
+      <label for="currency" class="control-label">Currency</label>
+      <input type="text" class="form-control" name="currency" [(ngModel)]="option.currency" id="currency" disabled="true">
+    </div>
+
+  </form>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="addOption()" label="Save"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayOption=false" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
+
+
+<!-- the main body -->
+<app-navbar></app-navbar>
+<!-- the error messages -->
+<p-growl [(value)]="msgs"></p-growl>
+
+<!-- confirmation dialog -->
+<p-confirmDialog></p-confirmDialog>
+
+<body class="Site">
+  <section class="Site-content">
+
+    <div class="row">
+      <div class="col-md-3" style="margin-top: 45px;">
+        <div class="card px-4">
+        <div class="card-body" style="color: black">
+          <h4>Menu Item Details</h4>
+          <hr>
+          <h4>Name</h4>
+          <p>
+            <img src="{{ menuItem.image }}"> {{ " " + menuItem.name}}</p>
+          <h4>Description</h4>
+          <p>{{menuItem.description}}</p>
+          <h4>Status</h4>
+          <p> {{menuItem.status}}</p>
+          <h4>Price</h4>
+          <p>{{menuItem.price}}</p>
+          <h4>Category</h4>
+          <p>{{menuItem.categoryName}}</p>
+          <br>
+          <h4>Choice Details</h4>
+          <hr>
+          <h4>Name</h4>
+          <p>{{choice.name}}</p>
+          <h4>Description</h4>
+          <p>{{choice.detail}}</p>
+          <h4>Required</h4>
+          <p> {{choice.required}}</p>
+        </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-9" style="margin-top: 45px;">
+        <div class="table-wrapper" style="margin-top: 1px;">
+
+          <div class="table-title">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4>Manage Options</h4>
+              </div>
+              <div class="col-sm-6">
+                <button (click)="openModalOptionPop()" class="btn btn-outline-dark" type="button">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  <span>Add</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <p-table [value]="optionList" [paginator]="true" [rows]="5" >
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of optionCols" [pSortableColumn]="col.field" style="font-size: 16px">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th style="font-size: 16px">Action</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-option>
+              <tr>
+                <td *ngFor="let col of optionCols" style="font-size: 16px">
+                  {{option[col.field]}}
+                </td>
+                <td style="font-size: 16px">
+                  <a class="edit" data-toggle="modal" (click)="editOption(option)">
+                    <i class="fa fa-pencil iconsize" style="color: darkblue" aria-hidden="true"></i>
+                  </a>
+                  <a class="delete" data-toggle="modal" (click)="openDeleteOptionPop(option)">
+                    <i class="fa fa-trash iconsize" style="color:maroon" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <app-footer></app-footer>
+</body>

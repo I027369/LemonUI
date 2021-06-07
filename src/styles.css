@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+.ui-growl {
+top: 5em !important;
+right: 1em !important;
+}
+
+
+.ui-tabview {
+    padding: .25em;
+    text-align: left;
+    color: blue;
+    background-color: coral
+}
+
+.ui-tabview .ui-tabview-nav {
+    list-style: none;
+    float: none;
+    position: relative;
+    margin: 2em 1px 0;
+    padding: 0;
+    white-space: nowrap;
+    display: inline-block!important;
+    color: blue;
+    font-size: 20px;
+
+}
+
+ .iconsize {
+    font-size:18px;     
+   }
+
+  .actionbutton {
+      font-size: 24px;
+      padding: 10px 20px;
+  } 
+

@@ -1,0 +1,12 @@
+div.margin {
+    margin: 75px 0;
+}
+p.margin {
+    margin: 30px 0;
+}
+p.shadow {
+    text-shadow: 3px 2px silver;
+}
+/* input.ng-invalid.ng-touched { 
+    border: 1px solid red;
+}*/

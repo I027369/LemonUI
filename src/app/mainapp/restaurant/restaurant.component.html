@@ -1,0 +1,137 @@
+<app-navbar></app-navbar>
+
+<p-growl [(value)]="msgs"></p-growl>  
+
+<body class="Site">
+  <header id="page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 m-auto text-center">
+          <h1>Restaurant Details</h1>    
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+<section id="restaurant" class="py-3 Site-content" >
+  <div class="container">
+    <div class="row d-flex flex-row justify-content-center">
+        <p-tabView>
+          <p-tabPanel header="Basic Details" leftIcon="fa-info-circle" >     
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="input" id="name" placeholder="Name" name="name" [(ngModel)]="restaurant.name">
+              </div>
+              <div class="form-group">
+                <label for="name">Tagline</label>
+                <input class="form-control" type="text" id="restauranttype" placeholder="Tagline" name="tagline" [(ngModel)]="restaurant.tagLine">
+              </div>
+              <div class="form-group">
+                <label for="name">Website</label>
+                <input class="form-control" type="input" id="Website" placeholder="Website" name="website" [(ngModel)]="restaurant.website">
+              </div>
+              <div class="form-group">
+                <label for="name">Email</label>
+                <input class="form-control" type="email" id="email" placeholder="E-mail" name="email" [(ngModel)]="restaurant.emailId">
+              </div>              
+              <div class="form-group">
+                <label for="name">Status</label>
+                <select id="status" class="form-control" name="status" [(ngModel)]="restaurant.status">
+                  <option>Draft</option>
+                  <option>Published</option>
+                  <option>Blocked</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="btn btn-info form-control" (click)="onSubmit()">Submit</div>                
+              </div>
+              
+          </p-tabPanel>
+          
+          <p-tabPanel header="Address" leftIcon="fa-address-card-o">
+            <div class="form-group">
+              <label for="name">Address</label>
+              <input class="form-control" type="text" id="address" placeholder="Address" name="address" [(ngModel)]="restaurant.address">
+            </div>
+            <div class="form-group">
+              <label for="name">City</label>
+              <input class="form-control" type="text" id="city" placeholder="City" name="city" [(ngModel)]="restaurant.city">
+            </div>
+          
+            <div class="form-group">
+              <label for="name">State</label>
+              <input class="form-control" type="text" id="state" placeholder="State" name="state" [(ngModel)]="restaurant.state">
+            </div>
+            <div class="form-group">
+              <label for="name">Country</label>
+              <input class="form-control" type="text" id="country" placeholder="Country" name="country" [(ngModel)]="restaurant.country">
+            </div>
+          
+            <div class="form-group">
+              <label for="name">zip</label>
+              <input class="form-control" type="text" id="zip" placeholder="Zip" name="zip" [(ngModel)]="restaurant.zip">
+            </div>
+            <div class="form-group">
+              <div class="btn btn-info form-control" (click)="onSubmit()">Submit</div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="Payment" leftIcon="fa-money">
+          <div class="form-group">
+            <label for="currency">Currency</label>
+            <input class="form-control" type="text" id="currency" placeholder="$" name="currency" [(ngModel)]="restaurant.currency">
+          </div>
+          <div class="form-group">  
+            <label for="tax">Tax Percentage</label>
+            <div class="input-group">
+              <input class="form-control" type="number" id="tax" name="tax" [(ngModel)]="restaurant.taxPercentage" >
+              <span class="input-group-addon">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="publishKey">Stripe Publishable Key</label>
+            <input class="form-control" type="input" id="publishKey" name="publishKey" [(ngModel)]="restaurant.stripePublishKey">
+          </div>
+          <div class="form-group">
+            <label for="secretKey">Stripe Secret Key</label>
+            <input class="form-control" type="input" id="secretKey" name="secretKey" [(ngModel)]="restaurant.stripeSecretKey">
+          </div>
+          <div class="form-group">
+            <div class="btn btn-info form-control" (click)="onSubmit()">Submit</div>
+          </div>
+          </p-tabPanel>
+          <p-tabPanel header="Theme" leftIcon="fa-paint-brush">
+          <div class="form-group input-group">
+            <span class="input-group-addon">Logo</span>
+            <input class="form-control" type="file" id="logo" name="logo" (ngModel)="logoToUpload" (change)="selectLogoFile($event)">
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon">QR Logo</span>
+            <input class="form-control" type="file" id="logo" name="logo" (ngModel)="qrlogoToUpload" (change)="selectQRLogoFile($event)">
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon">Background Image</span>
+            <input class="form-control" type="file" id="logo" name="logo" (ngModel)="bgToUpload" (change)="selectBGImageFile($event)">
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon">Background Color</span>
+            <p-colorPicker class="form-control" [(ngModel)]="restaurant.backgroundColor" inline="true"></p-colorPicker>
+          </div>
+          <div class="form-group input-group">
+            <p class="form-control">Selected Color:
+            <span class="form-control" style="margin-left:20px; display:inline-block;width:32px;height:32px;vertical-align:middle" [style.backgroundColor]="restaurant.backgroundColor"></span> {{restaurant.backgroundColor}} </p>
+          </div>   
+          <div class="form-group">
+            <div class="btn btn-info form-control" (click)="onSubmit()">Submit</div>
+          </div>
+          </p-tabPanel>
+        </p-tabView>
+    </div>
+  </div>
+
+</section>
+
+<app-footer></app-footer>
+</body>
+
+

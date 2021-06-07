@@ -1,0 +1,87 @@
+<div class="container margin">
+  <div class="row">   
+      <div class="row">
+        <p class="text-center margin oblique shadow">
+          <font size="40" style="color:teal; font-family:Comic Sans MS">Moonshot</font>
+        </p>
+      </div>
+      <div class="login-panel panel panel-default">
+        <div class="col-lg-6 col-lg-offset-3">
+          <div class="panel-body">
+            <p class="text-left">
+              <font size="5" style="color:black; "><strong>Start your free trial</strong></font>
+            </p>
+            <p class="text-left">
+              <font size="2" style="color:black; ">No credit card required</font>
+            </p>
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <fieldset>
+                <div class="form-group">
+                  <input 
+                  class="form-control"
+                  placeholder="Full Name"
+                  id="name"
+                  name="name"
+                  type="input"
+                  autofocus
+                  ngModel
+                  required 
+                  name1 
+                  #name1="ngModel"
+                  >
+                </div>
+                <span class="help-block" *ngIf="!name1.valid && name1.touched" style="color:red">
+                  Plese enter name!</span>
+                <div class="form-group">
+                  <input 
+                  class="form-control" 
+                  placeholder="E-mail" 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  ngModel 
+                  required 
+                  email 
+                  #email="ngModel"
+                  >
+                </div>
+                <span class="help-block" *ngIf="!email.valid && email.touched" style="color:red">
+                  Plese enter a valid email!</span>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Phone Number" name="phone" id= "phone" ngModel type="number" min="0" max="10">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Company" name="company" id="company" ngModel type="input">
+                </div>
+                <div class="form-group">
+                  <input 
+                  class="form-control" 
+                  placeholder="Password" 
+                  name="password" 
+                  type="password" 
+                  value=""
+                  ngModel
+                  required 
+                  password 
+                  #password="ngModel"
+                  >
+                </div>
+                <span class="help-block" *ngIf="!password.valid && password.touched" style="color:red">
+                  Plese enter password!</span>
+                <!-- Change this to a button or input when using this as a form -->
+                <button type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!f.valid">Sign Up</button>
+                <span class="help-block text-center" *ngIf="!signup" style="color:red">
+                  <strong>User already exists. Try Log in!</strong>
+                </span>
+              </fieldset>
+            </form>
+            <p></p>
+            <div class="text-center">
+              Already have an account?
+              <a id="signUp" routerLink="/">Log in</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

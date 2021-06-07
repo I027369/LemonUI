@@ -1,0 +1,83 @@
+
+<p-dialog header="Add Size" [(visible)]="displaySize" [width]="450" modal="true">
+  <form>
+    <div class="form-group">
+      <label for="name1">Name*</label>
+      <input type="text" class="form-control" name="name1" [(ngModel)]="size.name" id="name1" placeholder="Large  ">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="size.description" id="description" placeholder="Description">
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" class="form-control" name="price" [(ngModel)]="size.price" id="price">
+    </div>
+    <div class="form-group">
+      <label for="currency">Currency</label>
+      <input type="text" class="form-control" name="currency" [(ngModel)]="size.currency" id="currency" disabled="true">
+    </div>
+  </form>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="addSize()" label="Save"></button>
+    <button type="button" pButton icon="fa-close" (click)="displaySize=false" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+<!-- the error messages -->
+<p-growl [(value)]="msgs"></p-growl>
+
+<!-- this confirmation dialog is not needed. as this page is part of choices template hence the confimation dialog
+  of choice is used-->
+<!-- <p-confirmDialog></p-confirmDialog> -->
+
+
+<div class="table-wrapper">
+  <div class="table-title">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Manage Sizes
+        </h4>
+      </div>
+
+      <div class="col-sm-6">
+        <button (click)="showDialog()" class="btn btn-outline-dark" type="button" data-toggle="modal">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          <span>Add</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <p-table [value]="sizeList" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of sizeCols" [pSortableColumn]="col.field" style="font-size: 16px">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th style="font-size: 16px">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-size>
+      <tr>
+        <td *ngFor="let col of sizeCols" style="font-size: 16px">
+          {{size[col.field]}}
+        </td>
+        <td style="font-size: 16px">
+          <a class="edit" data-toggle="modal" (click)="editSize(size)">
+            <i class="fa fa-pencil" style="color: darkblue" aria-hidden="true"></i>
+          </a>
+          <a class="delete" data-toggle="modal" (click)="openDeleteSizePop(size)">
+            <i class="fa fa-trash" style="color: maroon;" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+

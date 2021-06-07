@@ -1,0 +1,178 @@
+
+<app-navbar></app-navbar>
+<p-growl [(value)]="msgs"></p-growl>
+
+<!-- confirmation dialog -->
+<p-confirmDialog></p-confirmDialog>
+
+<body class="Site">
+  <section class="Site-content">
+    <div class="tab">
+      <button class="tablinks" (click)="openCity($event, 'New Orders')" id="defaultOpen">
+        <h4>New Orders</h4>
+      </button>
+      <button class="tablinks" (click)="openCity($event, 'Ongoing Orders')">
+        <h4>Ongoing Orders</h4>
+      </button>
+      <button class="tablinks" (click)="openCity($event, 'Finished Orders')">
+        <h4>Finished Orders</h4>
+      </button>
+    </div>
+
+
+    <div id="New Orders" class="tabcontent" >
+      <div class="row mb-5" *ngFor="let order of orderList" >
+        <div class="card" style="width: 100%;">
+          <div class="card-header  text-left">
+            <p >
+              <span class="pull-left" style="font-size: 18px; font-weight: bold;">
+                 {{ "User: " + order.appUserId }}
+                 <p style="font-size: 12px; font-weight: normal;">{{ order.orderDate }}</p>
+              </span>      
+              <span class="pull-right" style="font-size: 18px; font-weight: bold;">
+                {{ "Order: " + order.id }}
+                <p style="font-size: 16px;">{{"Total: " + order.totalAmountWithCurrency }}</p>
+              </span> 
+            </p>
+          </div>
+  
+          <table class="table no-border">
+            <thead >
+              <tr>
+                <th scope="col" class="item">Item</th>
+                <th scope="col" class="price">Quantity</th>
+                <th scope="col" class="price">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let orderItem of order.orderItem">
+                <td class="item">{{orderItem.name}}</td>
+                <td class="price">{{orderItem.quantity}}</td>
+                <td class="price">{{orderItem.priceWithCurrency}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="card-text" *ngIf="order.hasMessage">
+            <hr>
+            <p style="padding-left: 30px; font-size: 16px;"><strong>Message:</strong>{{" " + order.message}}</p>
+          </div>
+          
+          <div class="card-footer">
+            <button class="btn btn-outline-dark pull-left" type="button">View Details</button>
+            <button class="btn btn-outline-success pull-right" type="button" (click)="acceptOrder(order)">Accept Order</button>
+            <button class="btn btn-outline-danger pull-right mr-2" type="button" (click)="cancelOrder(order)">Cancel Order</button>              
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="Ongoing Orders" class="tabcontent">
+      <div class="row mb-5" *ngFor="let order of orderList">
+        <div class="card" style="width: 100%;">
+          <div class="card-header  text-left">
+            <p>
+              <span class="pull-left" style="font-size: 18px; font-weight: bold;">
+                {{ "User: " + order.appUserId }}
+                <p style="font-size: 12px; font-weight: normal;">{{ order.orderDate }}</p>
+              </span>
+              <span class="pull-right" style="font-size: 18px; font-weight: bold;">
+                {{ "Order: " + order.id }}
+                <p style="font-size: 16px;">{{"Total: " + order.totalAmountWithCurrency }}</p>
+              </span>
+            </p>
+          </div>
+
+          <table class="table no-border">
+            <thead>
+              <tr>
+                <th scope="col" class="item">Item</th>
+                <th scope="col" class="price">Quantity</th>
+                <th scope="col" class="price">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orderItem of order.orderItem">
+                <td class="item">{{orderItem.name}}</td>
+                <td class="price">{{orderItem.quantity}}</td>
+                <td class="price">{{orderItem.priceWithCurrency}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <div class="card-text" *ngIf="order.hasMessage">
+            <hr>
+            <p style="padding-left: 30px; font-size: 16px;">
+              <strong>Message:</strong>{{" " + order.message}}</p>
+          </div>
+
+          <div class="card-footer">
+            <button class="btn btn-outline-dark pull-left" type="button">View Details</button>    
+            <button class="btn btn-outline-success pull-right ml-5" 
+            style="width: 5em" type="button" [disabled]="order.status == 'In-Process'" (click)="openCheckout(order)">Pay</button>
+            <select id="status" class="pull-right mr-5" name="status" (change)="selectStatus($event, order)" 
+            style="font-size:18px; margin-top:5px" [(ngModel)]="order.status">
+              <option >In-Process</option>
+              <option >Completed</option>
+              <option >Canceled</option>
+            </select>
+            <label  class="pull-right mr-4" style="font-size:18px; margin-top:5px">Order Status</label>
+           
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="Finished Orders" class="tabcontent">
+      <div class="row mb-5" *ngFor="let order of orderList">
+        <div class="card" style="width: 100%;">
+          <div class="card-header  text-left">
+            <p>
+              <span class="pull-left" style="font-size: 18px; font-weight: bold;">
+                {{ "User: " + order.appUserId }}
+                <p style="font-size: 12px; font-weight: normal;">{{ order.orderDate }}</p>
+              </span>
+              <span class="pull-right" style="font-size: 18px; font-weight: bold;">
+                {{ "Order: " + order.id }}
+                <p style="font-size: 16px;">{{"Total: " + order.totalAmountWithCurrency }}</p>
+              </span>
+            </p>
+          </div>
+      
+          <table class="table no-border">
+            <thead>
+              <tr>
+                <th scope="col" class="item">Item</th>
+                <th scope="col" class="price">Quantity</th>
+                <th scope="col" class="price">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orderItem of order.orderItem">
+                <td class="item">{{orderItem.name}}</td>
+                <td class="price">{{orderItem.quantity}}</td>
+                <td class="price">{{orderItem.priceWithCurrency}}</td>
+              </tr>
+      
+            </tbody>
+          </table>
+          <div class="card-text" *ngIf="order.hasMessage">
+            <hr>
+            <p style="padding-left: 30px; font-size: 16px;">
+              <strong>Message:</strong>{{" " + order.message}}</p>
+          </div>
+      
+          <div class="card-footer">
+            <button class="btn btn-outline-dark pull-left" type="button">View Details</button>
+            <label class="pull-right mr-4 text-success" style="font-size:18px; margin-top:5px">{{"Order Status:  "+ order.status}}</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <app-footer></app-footer>
+</body>
+
+
+

@@ -1,0 +1,100 @@
+<!-- the popup dialog -->
+<p-dialog header="Add Category" [(visible)]="displayCategory" [width]="450" modal="true">
+  <form>
+    <div class="form-group">
+      <label for="name1">Name*</label>
+      <input type="text" class="form-control" name="name1" [(ngModel)]="category.name" id="name1" placeholder="Starter">
+    </div>
+    <div class="form-group">
+      <label for="description">Sort Order</label>
+      <input type="number" class="form-control" name="sortorder" [(ngModel)]="category.sortOrder" id="sortorder">
+    </div>
+  </form>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="addCategory()" label="Save"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayCategory=false" label="Cancel"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+
+<!-- as category is dropped in the menu screen hence navigation bar is not needed-->
+<!-- <app-navbar></app-navbar> -->
+
+
+<!-- the error messages -->
+<p-growl [(value)]="msgs"></p-growl>
+
+<!-- confirmation dialog 
+<p-confirmDialog></p-confirmDialog> -->
+
+
+<!-- as category is dropped in the menu screen hence following section is not needed-->
+<!-- <body class="Site">
+  <section class="Site-content">
+  -->
+
+<!--
+  <div class="container col-sm-10" style="margin-top: 25px;">
+     -->
+    
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4>Manage
+              Categories
+            </h4>
+          </div>
+  
+          <div class="col-sm-6">
+            <button (click)="showDialog()" class="btn btn-outline-dark" type="button" data-toggle="modal">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              <span>Add</span>
+            </button>
+          </div>
+  
+        </div>
+      </div>
+  
+      <p-table [value]="categoryList" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngFor="let col of categoryCols" [pSortableColumn]="col.field" style="font-size: 16px">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="font-size: 16px">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+          <tr>
+            <td *ngFor="let col of categoryCols" style="font-size: 16px">
+              {{category[col.field]}}
+            </td>
+            <td style="font-size: 16px">
+              <a class="edit" data-toggle="modal" (click)="editCategory(category)">
+                <i class="fa fa-pencil" style="color: darkblue" aria-hidden="true"></i>
+              </a>
+              <a class="delete" data-toggle="modal" (click)="openDeleteCategoryPop(category)">
+                <i class="fa fa-trash" style="color: maroon;" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+  
+    </div>
+
+    <!--
+  </div> -->
+
+<!-- as category is dropped in the menu screen hence following section is not needed-->
+<!--
+  </section>
+  <app-footer></app-footer>
+</body>
+-->
+
+

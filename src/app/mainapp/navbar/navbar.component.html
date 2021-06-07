@@ -1,0 +1,73 @@
+<!--<nav class="navbar navbar-inverse" style="margin-top: 25px;">
+  <div class="container-fluid">
+    <div class="navbar-header col-sm-8">
+      <a routerLink="/home" class="navbar-brand"><b>Home</b></a>
+    </div>
+    <div class="navbar-header navbar-right">
+      <a href="#" class="dropdown-toggle navbar-brand" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#">User Profile</a>
+        </li>
+        <li>
+          <a href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+  <div class="container">
+    <img *ngIf="logo.length > 0" src="{{ logo}}">
+    <a  class="navbar-brand" style="color:white">{{"  " + restaurantName }}</a>
+    <small class="form-text text-muted" style="color:white">{{ tagline }}</small>    
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a routerLink="/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/home/restaurant" class="nav-link">Restaurant</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/home/menu" class="nav-link">Food</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/home/table" class="nav-link">Tables</a>
+        </li>
+        <li class="nav-item">
+          <a  routerLink="/home/order" class="nav-link">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link">Offers</a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link">Reports</a>
+        </li>
+        <li class="nav-item dropdown">
+          <i class="fa fa-user nav-link dropdown-toggle" style="color: white" 
+          style="font-size:18px" data-toggle="dropdown"></i>          
+          <div class="dropdown-menu">
+            <a href="" class="dropdown-item">User Profile</a>
+            <a href="" class="dropdown-item">Log out</a>
+           </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!--
+<p-menubar [model]="items">
+  <button pButton type="button" icon="fa-user" iconPos="left"></button>
+  <button pButton label="Logout" icon="fa-sign-out"></button>
+</p-menubar>
+-->
